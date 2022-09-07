@@ -19,46 +19,62 @@ public class UserDTO extends ExtendedDTO {
     @Valid
     private Set<RoleDTO> roles;
 
+    private Long seeds;
+
     public UserDTO() {
     }
 
-    public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles) {
+    public UserDTO(UUID id, String firstName, String lastName, String email, Set<RoleDTO> roles, Long seeds) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.roles = roles;
+        this.seeds = seeds;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public UserDTO setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public UserDTO setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserDTO setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public Set<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleDTO> roles) {
+    public UserDTO setRoles(Set<RoleDTO> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public Long getSeeds() {
+        return seeds;
+    }
+
+    public UserDTO setSeeds(Long seeds) {
+        this.seeds = seeds;
+        return this;
     }
 }

@@ -25,6 +25,9 @@ public class User extends ExtendedAuditEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "seeds")
+    private Long seeds;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_role",
@@ -36,12 +39,13 @@ public class User extends ExtendedAuditEntity {
     public User() {
     }
 
-    public User(UUID id, String firstName, String lastName, String email, String password, Set<Role> roles) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Long seeds, Set<Role> roles) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.seeds = seeds;
         this.roles = roles;
     }
 
@@ -49,39 +53,53 @@ public class User extends ExtendedAuditEntity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Long getSeeds() {
+        return seeds;
+    }
+
+    public User setSeeds(long seeds) {
+        this.seeds = seeds;
+        return this;
     }
 
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public User setRoles(Set<Role> roles) {
         this.roles = roles;
+        return this;
     }
 }
