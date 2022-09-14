@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderTeaServiceImpl extends ExtendedServiceImpl<OrderTea> implements OrderTeaService {
+public class OrderPositionServiceImpl extends ExtendedServiceImpl<OrderPosition> implements OrderPositionService {
 
-    protected OrderTeaServiceImpl(ExtendedRepository<OrderTea> repository, Logger logger) {
+    protected OrderPositionServiceImpl(ExtendedRepository<OrderPosition> repository, Logger logger) {
         super(repository, logger);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.jwt.domain.user;
 
 import com.example.jwt.core.generic.ExtendedAuditEntity;
-import com.example.jwt.core.generic.ExtendedEntity;
+import com.example.jwt.domain.order.Order;
+import com.example.jwt.domain.rank.Rank;
 import com.example.jwt.domain.role.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,10 +38,20 @@ public class User extends ExtendedAuditEntity {
     )
     private Set<Role> roles = new HashSet<>();
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rank_id", referencedColumnName = "id")
+    private Rank rank;
+
+
+    @JsonBackReference(value = "users_orders")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Order> orders;
+
     public User() {
     }
 
-    public User(UUID id, String firstName, String lastName, String email, String password, Long seeds, Set<Role> roles) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Long seeds, Set<Role> roles, Rank rank, Set<Order> orders) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,6 +59,8 @@ public class User extends ExtendedAuditEntity {
         this.password = password;
         this.seeds = seeds;
         this.roles = roles;
+        this.rank = rank;
+        this.orders = orders;
     }
 
     public String getFirstName() {
@@ -89,7 +103,7 @@ public class User extends ExtendedAuditEntity {
         return seeds;
     }
 
-    public User setSeeds(long seeds) {
+    public User setSeeds(Long seeds) {
         this.seeds = seeds;
         return this;
     }
@@ -100,6 +114,24 @@ public class User extends ExtendedAuditEntity {
 
     public User setRoles(Set<Role> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public User setRank(Rank rank) {
+        this.rank = rank;
+        return this;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public User setOrders(Set<Order> orders) {
+        this.orders = orders;
         return this;
     }
 }

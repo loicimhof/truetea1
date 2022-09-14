@@ -1,8 +1,8 @@
-package com.example.jwt.domain.order_tea;
+package com.example.jwt.domain.country;
 
 import com.example.jwt.core.generic.ExtendedRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderTeaRepository extends ExtendedRepository<OrderTea> {
+public interface CountryRepository extends ExtendedRepository<Country> {
 }

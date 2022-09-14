@@ -4,17 +4,17 @@ import com.example.jwt.core.generic.ExtendedDTO;
 
 import java.util.UUID;
 
-public class OrderTeaDTO extends ExtendedDTO{
+public class OrderPositionDTO extends ExtendedDTO{
 
     private Long amount;
 
     private Long price;
 
 
-    public OrderTeaDTO() {
+    public OrderPositionDTO() {
     }
 
-    public OrderTeaDTO(UUID id, Long amount, Long price) {
+    public OrderPositionDTO(UUID id, Long amount, Long price) {
         super(id);
         this.amount = amount;
         this.price = price;
@@ -24,7 +24,7 @@ public class OrderTeaDTO extends ExtendedDTO{
         return amount;
     }
 
-    public OrderTeaDTO setAmount(Long amount) {
+    public OrderPositionDTO setAmount(Long amount) {
         this.amount = amount;
         return this;
     }
@@ -33,7 +33,7 @@ public class OrderTeaDTO extends ExtendedDTO{
         return price;
     }
 
-    public OrderTeaDTO setPrice(Long price) {
+    public OrderPositionDTO setPrice(Long price) {
         this.price = price;
         return this;
     }

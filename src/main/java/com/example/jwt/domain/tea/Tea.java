@@ -1,6 +1,8 @@
 package com.example.jwt.domain.tea;
 
 import com.example.jwt.core.generic.ExtendedEntity;
+import com.example.jwt.domain.country.Country;
+import com.example.jwt.domain.teatype.TeaType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,43 +16,41 @@ public class Tea extends ExtendedEntity {
     private String name;
 
     @Column(name = "description")
-    private String Description;
-
-    @Column(name = "origin")
-    private String origin;
+    private String description;
 
     @Column(name = "buying_price")
     private Long buyingPrice;
 
     @Column(name = "selling_price")
-    private String sellingPrice;
+    private Long sellingPrice;
 
     @Column(name = "harvest_date")
     private Date harvestDate;
 
+    @Column(name = "stock")
+    private long stock;
 
-    /*
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_role",
-            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "origin", referencedColumnName = "id")
+    private Country country;
 
-     */
+    @ManyToOne
+    @JoinColumn(name = "tea_type_id", referencedColumnName = "id")
+    private TeaType teaType;
 
     public Tea() {
     }
 
-    public Tea(UUID id, String name, String description, String origin, Long buyingPrice, String sellingPrice, Date harvestDate) {
+    public Tea(UUID id, String name, String description, Long buyingPrice, Long sellingPrice, Date harvestDate, long stock, Country country, TeaType teaType) {
         super(id);
         this.name = name;
-        Description = description;
-        this.origin = origin;
+        this.description = description;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
         this.harvestDate = harvestDate;
+        this.stock = stock;
+        this.country = country;
+        this.teaType = teaType;
     }
 
     public String getName() {
@@ -63,20 +63,11 @@ public class Tea extends ExtendedEntity {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public Tea setDescription(String description) {
-        Description = description;
-        return this;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public Tea setOrigin(String origin) {
-        this.origin = origin;
+        this.description = description;
         return this;
     }
 
@@ -89,11 +80,11 @@ public class Tea extends ExtendedEntity {
         return this;
     }
 
-    public String getSellingPrice() {
+    public Long getSellingPrice() {
         return sellingPrice;
     }
 
-    public Tea setSellingPrice(String sellingPrice) {
+    public Tea setSellingPrice(Long sellingPrice) {
         this.sellingPrice = sellingPrice;
         return this;
     }
@@ -104,6 +95,33 @@ public class Tea extends ExtendedEntity {
 
     public Tea setHarvestDate(Date harvestDate) {
         this.harvestDate = harvestDate;
+        return this;
+    }
+
+    public long getStock() {
+        return stock;
+    }
+
+    public Tea setStock(long stock) {
+        this.stock = stock;
+        return this;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Tea setCountry(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public TeaType getTeaType() {
+        return teaType;
+    }
+
+    public Tea setTeaType(TeaType teaType) {
+        this.teaType = teaType;
         return this;
     }
 }

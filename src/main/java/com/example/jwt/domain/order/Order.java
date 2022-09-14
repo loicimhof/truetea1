@@ -1,11 +1,11 @@
 package com.example.jwt.domain.order;
 
 import com.example.jwt.core.generic.ExtendedEntity;
+import com.example.jwt.domain.user.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -20,7 +20,20 @@ public class Order extends ExtendedEntity {
     @Column(name = "discount")
     private Long final_price;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    private User user;
+
+
     public Order() {
+    }
+
+    public Order(UUID id, Date date_bought, Long reduction, Long final_price, User user) {
+        super(id);
+        this.date_bought = date_bought;
+        this.reduction = reduction;
+        this.final_price = final_price;
+        this.user = user;
     }
 
     public Date getDate_bought() {
@@ -47,6 +60,15 @@ public class Order extends ExtendedEntity {
 
     public Order setFinal_price(Long final_price) {
         this.final_price = final_price;
+        return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Order setUser(User user) {
+        this.user = user;
         return this;
     }
 }
