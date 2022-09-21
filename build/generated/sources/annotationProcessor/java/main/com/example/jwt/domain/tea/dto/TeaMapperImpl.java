@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-14T10:45:39+0200",
+    date = "2022-09-20T16:22:29+0200",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.4.1 (Amazon.com Inc.)"
 )
 @Component
@@ -84,7 +84,7 @@ public class TeaMapperImpl implements TeaMapper {
         tea.setName( dto.getName() );
         tea.setDescription( dto.getDescription() );
         if ( dto.getSellingPrice() != null ) {
-            tea.setSellingPrice( Long.parseLong( dto.getSellingPrice() ) );
+            tea.setSellingPrice( Float.parseFloat( dto.getSellingPrice() ) );
         }
         tea.setHarvestDate( dto.getHarvestDate() );
 

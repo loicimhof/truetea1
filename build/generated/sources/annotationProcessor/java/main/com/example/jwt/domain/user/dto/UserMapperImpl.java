@@ -1,7 +1,5 @@
 package com.example.jwt.domain.user.dto;
 
-import com.example.jwt.domain.authority.Authority;
-import com.example.jwt.domain.authority.dto.AuthorityDTO;
 import com.example.jwt.domain.role.Role;
 import com.example.jwt.domain.role.dto.RoleDTO;
 import com.example.jwt.domain.user.User;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-14T10:45:39+0200",
+    date = "2022-09-20T16:22:29+0200",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.4.1 (Amazon.com Inc.)"
 )
 @Component
@@ -129,32 +127,6 @@ public class UserMapperImpl implements UserMapper {
         return user;
     }
 
-    protected Authority authorityDTOToAuthority(AuthorityDTO authorityDTO) {
-        if ( authorityDTO == null ) {
-            return null;
-        }
-
-        Authority authority = new Authority();
-
-        authority.setId( authorityDTO.getId() );
-        authority.setName( authorityDTO.getName() );
-
-        return authority;
-    }
-
-    protected Set<Authority> authorityDTOSetToAuthoritySet(Set<AuthorityDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Authority> set1 = new LinkedHashSet<Authority>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( AuthorityDTO authorityDTO : set ) {
-            set1.add( authorityDTOToAuthority( authorityDTO ) );
-        }
-
-        return set1;
-    }
-
     protected Role roleDTOToRole(RoleDTO roleDTO) {
         if ( roleDTO == null ) {
             return null;
@@ -164,7 +136,6 @@ public class UserMapperImpl implements UserMapper {
 
         role.setId( roleDTO.getId() );
         role.setName( roleDTO.getName() );
-        role.setAuthorities( authorityDTOSetToAuthoritySet( roleDTO.getAuthorities() ) );
 
         return role;
     }
@@ -182,32 +153,6 @@ public class UserMapperImpl implements UserMapper {
         return set1;
     }
 
-    protected AuthorityDTO authorityToAuthorityDTO(Authority authority) {
-        if ( authority == null ) {
-            return null;
-        }
-
-        AuthorityDTO authorityDTO = new AuthorityDTO();
-
-        authorityDTO.setId( authority.getId() );
-        authorityDTO.setName( authority.getName() );
-
-        return authorityDTO;
-    }
-
-    protected Set<AuthorityDTO> authoritySetToAuthorityDTOSet(Set<Authority> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<AuthorityDTO> set1 = new LinkedHashSet<AuthorityDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( Authority authority : set ) {
-            set1.add( authorityToAuthorityDTO( authority ) );
-        }
-
-        return set1;
-    }
-
     protected RoleDTO roleToRoleDTO(Role role) {
         if ( role == null ) {
             return null;
@@ -217,7 +162,6 @@ public class UserMapperImpl implements UserMapper {
 
         roleDTO.setId( role.getId() );
         roleDTO.setName( role.getName() );
-        roleDTO.setAuthorities( authoritySetToAuthorityDTOSet( role.getAuthorities() ) );
 
         return roleDTO;
     }

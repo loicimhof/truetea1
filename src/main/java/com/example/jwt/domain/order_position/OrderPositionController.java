@@ -1,8 +1,8 @@
-package com.example.jwt.domain.order_tea;
+package com.example.jwt.domain.order_position;
 
 
-import com.example.jwt.domain.order_tea.dto.OrderPositionDTO;
-import com.example.jwt.domain.order_tea.dto.OrderTeaMapper;
+import com.example.jwt.domain.order_position.dto.OrderPositionDTO;
+import com.example.jwt.domain.order_position.dto.OrderTeaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -18,16 +18,15 @@ public class Authority extends ExtendedEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "authorities")
-    Set<Role> roles = new HashSet<>();
+/*    @ManyToMany(mappedBy = "authorities")
+    Set<Role> roles = new HashSet<>();*/
 
     public Authority() {
     }
 
-    public Authority(UUID id, String name, Set<Role> roles) {
+    public Authority(UUID id, String name) {
         super(id);
         this.name = name;
-        this.roles = roles;
     }
 
     public String getName() {

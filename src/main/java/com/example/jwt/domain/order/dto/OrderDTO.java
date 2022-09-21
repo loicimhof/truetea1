@@ -1,53 +1,54 @@
 package com.example.jwt.domain.order.dto;
 
 import com.example.jwt.core.generic.ExtendedDTO;
+import com.example.jwt.domain.order_position.dto.OrderPositionDTO;
+import com.example.jwt.domain.user.dto.UserDTO;
 
-import javax.persistence.Column;
-import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
-public class OrderDTO extends ExtendedDTO{
+public class OrderDTO extends ExtendedDTO {
 
-    private Date date_bought;
+    private Long price;
 
-    private Long reduction;
+    private UserDTO user;
 
-    private Long final_price;
+    private Set<OrderPositionDTO> orderPositions;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(UUID id, Date date_bought, Long reduction, Long final_price) {
+    public OrderDTO(UUID id, Long price, UserDTO user, Set<OrderPositionDTO> orderPositions) {
         super(id);
-        this.date_bought = date_bought;
-        this.reduction = reduction;
-        this.final_price = final_price;
+        this.price = price;
+        this.user = user;
+        this.orderPositions = orderPositions;
     }
 
-    public Date getDate_bought() {
-        return date_bought;
+    public Long getPrice() {
+        return price;
     }
 
-    public OrderDTO setDate_bought(Date date_bought) {
-        this.date_bought = date_bought;
+    public OrderDTO setPrice(Long price) {
+        this.price = price;
         return this;
     }
 
-    public Long getReduction() {
-        return reduction;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public OrderDTO setReduction(Long reduction) {
-        this.reduction = reduction;
+    public OrderDTO setUser(UserDTO user) {
+        this.user = user;
         return this;
     }
 
-    public Long getFinal_price() {
-        return final_price;
+    public Set<OrderPositionDTO> getOrderPositions() {
+        return orderPositions;
     }
 
-    public OrderDTO setFinal_price(Long final_price) {
-        this.final_price = final_price;
+    public OrderDTO setOrderPositions(Set<OrderPositionDTO> orderPositions) {
+        this.orderPositions = orderPositions;
         return this;
     }
 }

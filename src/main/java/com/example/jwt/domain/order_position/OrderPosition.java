@@ -1,4 +1,4 @@
-package com.example.jwt.domain.order_tea;
+package com.example.jwt.domain.order_position;
 
 import com.example.jwt.core.generic.ExtendedEntity;
 import com.example.jwt.domain.order.Order;
@@ -8,14 +8,12 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order_tea")
+@Table(name = "order_positions")
 public class OrderPosition extends ExtendedEntity {
 
     @Column(name = "amount")
     private Long amount;
 
-    @Column(name = "price")
-    private Long price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -28,10 +26,9 @@ public class OrderPosition extends ExtendedEntity {
     public OrderPosition() {
     }
 
-    public OrderPosition(UUID id, Long amount, Long price, Order order, Tea tea) {
+    public OrderPosition(UUID id, Long amount, Order order, Tea tea) {
         super(id);
         this.amount = amount;
-        this.price = price;
         this.order = order;
         this.tea = tea;
     }
@@ -42,15 +39,6 @@ public class OrderPosition extends ExtendedEntity {
 
     public OrderPosition setAmount(Long amount) {
         this.amount = amount;
-        return this;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public OrderPosition setPrice(Long price) {
-        this.price = price;
         return this;
     }
 

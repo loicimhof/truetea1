@@ -1,7 +1,7 @@
-package com.example.jwt.domain.order_tea.dto;
+package com.example.jwt.domain.order_position.dto;
 
 import com.example.jwt.core.generic.ExtendedMapper;
-import com.example.jwt.domain.order_tea.OrderPosition;
+import com.example.jwt.domain.order_position.OrderPosition;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

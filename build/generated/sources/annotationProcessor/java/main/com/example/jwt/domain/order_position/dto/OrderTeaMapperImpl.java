@@ -1,6 +1,8 @@
-package com.example.jwt.domain.order_tea.dto;
+package com.example.jwt.domain.order_position.dto;
 
-import com.example.jwt.domain.order_tea.OrderPosition;
+import com.example.jwt.domain.order_position.OrderPosition;
+import com.example.jwt.domain.tea.Tea;
+import com.example.jwt.domain.tea.dto.TeaDTO;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-14T10:45:39+0200",
+    date = "2022-09-20T16:22:29+0200",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.4.1 (Amazon.com Inc.)"
 )
 @Component
@@ -82,7 +84,7 @@ public class OrderTeaMapperImpl implements OrderTeaMapper {
 
         orderPosition.setId( dto.getId() );
         orderPosition.setAmount( dto.getAmount() );
-        orderPosition.setPrice( dto.getPrice() );
+        orderPosition.setTea( teaDTOToTea( dto.getTea() ) );
 
         return orderPosition;
     }
@@ -97,8 +99,44 @@ public class OrderTeaMapperImpl implements OrderTeaMapper {
 
         orderPositionDTO.setId( orderPosition.getId() );
         orderPositionDTO.setAmount( orderPosition.getAmount() );
-        orderPositionDTO.setPrice( orderPosition.getPrice() );
+        orderPositionDTO.setTea( teaToTeaDTO( orderPosition.getTea() ) );
 
         return orderPositionDTO;
+    }
+
+    protected Tea teaDTOToTea(TeaDTO teaDTO) {
+        if ( teaDTO == null ) {
+            return null;
+        }
+
+        Tea tea = new Tea();
+
+        tea.setId( teaDTO.getId() );
+        tea.setName( teaDTO.getName() );
+        tea.setDescription( teaDTO.getDescription() );
+        if ( teaDTO.getSellingPrice() != null ) {
+            tea.setSellingPrice( Float.parseFloat( teaDTO.getSellingPrice() ) );
+        }
+        tea.setHarvestDate( teaDTO.getHarvestDate() );
+
+        return tea;
+    }
+
+    protected TeaDTO teaToTeaDTO(Tea tea) {
+        if ( tea == null ) {
+            return null;
+        }
+
+        TeaDTO teaDTO = new TeaDTO();
+
+        teaDTO.setId( tea.getId() );
+        teaDTO.setName( tea.getName() );
+        teaDTO.setDescription( tea.getDescription() );
+        if ( tea.getSellingPrice() != null ) {
+            teaDTO.setSellingPrice( String.valueOf( tea.getSellingPrice() ) );
+        }
+        teaDTO.setHarvestDate( tea.getHarvestDate() );
+
+        return teaDTO;
     }
 }

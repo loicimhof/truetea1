@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-14T10:45:39+0200",
+    date = "2022-09-20T16:22:29+0200",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.4.1 (Amazon.com Inc.)"
 )
 @Component
@@ -83,7 +83,9 @@ public class RankMapperImpl implements RankMapper {
         rank.setId( dto.getId() );
         rank.setName( dto.getName() );
         rank.setRequiredSeeds( dto.getRequiredSeeds() );
-        rank.setDiscount( dto.getDiscount() );
+        if ( dto.getDiscount() != null ) {
+            rank.setDiscount( dto.getDiscount().floatValue() );
+        }
 
         return rank;
     }
@@ -99,7 +101,9 @@ public class RankMapperImpl implements RankMapper {
         rankDTO.setId( ranks.getId() );
         rankDTO.setName( ranks.getName() );
         rankDTO.setRequiredSeeds( ranks.getRequiredSeeds() );
-        rankDTO.setDiscount( ranks.getDiscount() );
+        if ( ranks.getDiscount() != null ) {
+            rankDTO.setDiscount( ranks.getDiscount().longValue() );
+        }
 
         return rankDTO;
     }

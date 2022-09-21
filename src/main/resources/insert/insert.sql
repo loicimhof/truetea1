@@ -1,7 +1,3 @@
-insert into users(id, email, first_name, last_name, password) values ('69a069b8-2df8-11ed-a261-0242ac120002', 'richi@ny.com', 'Richi', 'Staub', '$2a$10$PywC0M1Jx4D4X7abwQT1UOLmp8eh9f1Tclf9Io1kp7lcChoP4yme2');
--- // password = gibb //
-
-
 -- into rank - complete
 insert into rank(id, discount, name, required_seeds) values ('eb028170-2ead-11ed-a261-0242ac120002', 1.00, 'bronze', 0);
 insert into rank(id, discount, name, required_seeds) values ('eb028170-2ead-11ed-a261-0242ac120003', 0.96, 'silver', 20);
@@ -56,8 +52,9 @@ insert into tea(id, buying_price, description, harvest_date, name, origin, selli
 insert into tea(id, buying_price, description, harvest_date, name, origin, selling_price, stock, tea_type_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120030', 6.0, 'MT', '2022.01.01', 'testtea', 'ab028170-2ead-11ed-a261-0242ac120001', 13.0, 680, 'ab028170-2ead-11ed-a261-0242ac120010');
 
 
-insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'admin');
-insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120002', 'customer');
+insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ROLE_ADMIN');
+insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120002', 'ROLE_USER');
+insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120003', 'ROLE_DEV');
 
 
 insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'bsp 1');
@@ -67,5 +64,3 @@ insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120003', 
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120001');
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120002');
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120003');
-
-

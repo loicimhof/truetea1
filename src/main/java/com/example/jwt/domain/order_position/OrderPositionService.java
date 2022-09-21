@@ -1,4 +1,4 @@
-package com.example.jwt.domain.order_tea;
+package com.example.jwt.domain.order_position;
 
 import com.example.jwt.core.generic.ExtendedService;
 

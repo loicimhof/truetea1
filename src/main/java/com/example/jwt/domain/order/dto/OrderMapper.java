@@ -8,6 +8,6 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderMapper extends ExtendedMapper<Order, OrderDTO> {
-    Order fromDTO (OrderDTO dto);
-    OrderDTO toDTO (Order orders);
+    // Order fromDTO (OrderDTO dto);
+    // OrderDTO toDTO (Order orders);
 }

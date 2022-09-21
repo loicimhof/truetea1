@@ -1,65 +1,49 @@
 package com.example.jwt.domain.order;
 
-import com.example.jwt.core.generic.ExtendedEntity;
+import com.example.jwt.core.generic.ExtendedAuditEntity;
+
+import com.example.jwt.domain.order_position.OrderPosition;
 import com.example.jwt.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
-public class Order extends ExtendedEntity {
+public class Order extends ExtendedAuditEntity {
 
-    @Column(name = "date_bought")
-    private Date date_bought;
-
-    @Column(name = "reduction")
-    private Long reduction;
-
-    @Column(name = "discount")
-    private Long final_price;
+    @Column(name = "price")
+    private Float price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id", referencedColumnName = "id")
     private User user;
 
 
+    @JsonBackReference(value = "order_orderPosition")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<OrderPosition> orderPositions;
+
+
     public Order() {
     }
 
-    public Order(UUID id, Date date_bought, Long reduction, Long final_price, User user) {
+    public Order(UUID id, Float price, User user, Set<OrderPosition> orderPositions) {
         super(id);
-        this.date_bought = date_bought;
-        this.reduction = reduction;
-        this.final_price = final_price;
+        this.price = price;
         this.user = user;
+        this.orderPositions = orderPositions;
     }
 
-    public Date getDate_bought() {
-        return date_bought;
+    public Float getPrice() {
+        return price;
     }
 
-    public Order setDate_bought(Date date_bought) {
-        this.date_bought = date_bought;
-        return this;
-    }
-
-    public Long getReduction() {
-        return reduction;
-    }
-
-    public Order setReduction(Long reduction) {
-        this.reduction = reduction;
-        return this;
-    }
-
-    public Long getFinal_price() {
-        return final_price;
-    }
-
-    public Order setFinal_price(Long final_price) {
-        this.final_price = final_price;
+    public Order setPrice(Float price) {
+        this.price = price;
         return this;
     }
 
@@ -69,6 +53,15 @@ public class Order extends ExtendedEntity {
 
     public Order setUser(User user) {
         this.user = user;
+        return this;
+    }
+
+    public Set<OrderPosition> getOrderPositions() {
+        return orderPositions;
+    }
+
+    public Order setOrderPositions(Set<OrderPosition> orderPositions) {
+        this.orderPositions = orderPositions;
         return this;
     }
 }

@@ -19,10 +19,10 @@ public class Tea extends ExtendedEntity {
     private String description;
 
     @Column(name = "buying_price")
-    private Long buyingPrice;
+    private Float buyingPrice;
 
-    @Column(name = "selling_price")
-    private Long sellingPrice;
+    @Column(name = "selling_price", nullable = false)
+    private Float sellingPrice;
 
     @Column(name = "harvest_date")
     private Date harvestDate;
@@ -34,6 +34,7 @@ public class Tea extends ExtendedEntity {
     @JoinColumn(name = "origin", referencedColumnName = "id")
     private Country country;
 
+
     @ManyToOne
     @JoinColumn(name = "tea_type_id", referencedColumnName = "id")
     private TeaType teaType;
@@ -41,7 +42,7 @@ public class Tea extends ExtendedEntity {
     public Tea() {
     }
 
-    public Tea(UUID id, String name, String description, Long buyingPrice, Long sellingPrice, Date harvestDate, long stock, Country country, TeaType teaType) {
+    public Tea(UUID id, String name, String description, Float buyingPrice, Float sellingPrice, Date harvestDate, long stock, Country country, TeaType teaType) {
         super(id);
         this.name = name;
         this.description = description;
@@ -71,20 +72,20 @@ public class Tea extends ExtendedEntity {
         return this;
     }
 
-    public Long getBuyingPrice() {
+    public Float getBuyingPrice() {
         return buyingPrice;
     }
 
-    public Tea setBuyingPrice(Long buyingPrice) {
+    public Tea setBuyingPrice(Float buyingPrice) {
         this.buyingPrice = buyingPrice;
         return this;
     }
 
-    public Long getSellingPrice() {
+    public Float getSellingPrice() {
         return sellingPrice;
     }
 
-    public Tea setSellingPrice(Long sellingPrice) {
+    public Tea setSellingPrice(Float sellingPrice) {
         this.sellingPrice = sellingPrice;
         return this;
     }

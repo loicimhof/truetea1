@@ -15,16 +15,15 @@ public class RoleDTO extends ExtendedDTO {
     @Size(min = 1, max = 255)
     private String name;
 
-    @Valid
-    private Set<AuthorityDTO> authorities;
+/*    @Valid
+    private Set<AuthorityDTO> authorities;*/
 
     public RoleDTO() {
     }
 
-    public RoleDTO(UUID id, String name, Set<AuthorityDTO> authorities) {
+    public RoleDTO(UUID id, String name) {
         super(id);
         this.name = name;
-        this.authorities = authorities;
     }
 
     public String getName() {
@@ -35,11 +34,4 @@ public class RoleDTO extends ExtendedDTO {
         this.name = name;
     }
 
-    public Set<AuthorityDTO> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<AuthorityDTO> authorities) {
-        this.authorities = authorities;
-    }
 }
