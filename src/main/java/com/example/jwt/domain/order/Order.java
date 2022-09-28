@@ -7,7 +7,6 @@ import com.example.jwt.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 

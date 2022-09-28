@@ -39,6 +39,12 @@ public class OrderController {
         return new ResponseEntity<>(orderMapper.toDTOs(orders), HttpStatus.OK);
     }
 
+    @GetMapping("/own")
+    public ResponseEntity<List<OrderDTO>> getAllOwn() {
+        List<Order> orders = orderService.getOrders();
+        return new ResponseEntity<>(orderMapper.toDTOs(orders), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) {
         Order savedOrder = orderService.createOrder(orderMapper.fromDTO(orderDTO));
