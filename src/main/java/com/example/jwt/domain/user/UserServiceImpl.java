@@ -1,6 +1,7 @@
 package com.example.jwt.domain.user;
 
 import com.example.jwt.core.generic.ExtendedServiceImpl;
+import com.example.jwt.domain.rank.Rank;
 import com.example.jwt.domain.rank.RankService;
 import com.example.jwt.domain.role.RoleService;
 import org.slf4j.Logger;
@@ -42,13 +43,15 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
 
 
 
+
+
+
     @Override
     public User register(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
+        user.setSeeds(0);
         user.setRank(rankService.findByName("silver"));
         user.setRoles(new HashSet<>(Arrays.asList(roleService.findByName("ROLE_ADMIN"))));
-        user.setSeeds(0L);
         return save(user);
     }
 }

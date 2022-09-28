@@ -28,7 +28,6 @@ insert into country(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120004', 'i
 --into tea - incomplete
 
 
--- Key auf Tea??? funzt nicht?
 insert into tea(id, buying_price, description, harvest_date, name, origin, selling_price, stock, tea_type_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120011', 11.0, 'MT', '2022.01.01', 'testtea', 'ab028170-2ead-11ed-a261-0242ac120003', 13.0, 230, 'ab028170-2ead-11ed-a261-0242ac120001');
 insert into tea(id, buying_price, description, harvest_date, name, origin, selling_price, stock, tea_type_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120012', 14.5, 'MT', '2022.01.01', 'testtea', 'ab028170-2ead-11ed-a261-0242ac120001', 16.0, 5, 'ab028170-2ead-11ed-a261-0242ac120001');
 insert into tea(id, buying_price, description, harvest_date, name, origin, selling_price, stock, tea_type_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120013', 17.0, 'MT', '2022.01.01', 'testtea', 'ab028170-2ead-11ed-a261-0242ac120001', 23.0, 23, 'ab028170-2ead-11ed-a261-0242ac120002');

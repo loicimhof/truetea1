@@ -1,1 +1,1 @@
-select r.name, r.required_seeds from users u, rank r where u.seeds > r.required_seeds order by seeds limit 1;
+select r.name, r.required_seeds from rank r where 150 > r.required_seeds order by r.required_seeds desc limit 1;

@@ -18,8 +18,8 @@ public class Order extends ExtendedAuditEntity {
     @Column(name = "price")
     private Float price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = false)
     private User user;
 
 

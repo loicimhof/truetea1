@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface RankService extends ExtendedService<Rank> {
     Rank findByName(String name);
+
 }

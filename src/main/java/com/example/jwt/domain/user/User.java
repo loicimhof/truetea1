@@ -28,7 +28,7 @@ public class User extends ExtendedAuditEntity {
     private String password;
 
     @Column(name = "seeds")
-    private Long seeds;
+    private Integer seeds;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -51,7 +51,7 @@ public class User extends ExtendedAuditEntity {
     public User() {
     }
 
-    public User(UUID id, String firstName, String lastName, String email, String password, Long seeds, Set<Role> roles, Rank rank, Set<Order> orders) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Integer seeds, Set<Role> roles, Rank rank, Set<Order> orders) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -99,11 +99,11 @@ public class User extends ExtendedAuditEntity {
         return this;
     }
 
-    public Long getSeeds() {
+    public Integer getSeeds() {
         return seeds;
     }
 
-    public User setSeeds(Long seeds) {
+    public User setSeeds(Integer seeds) {
         this.seeds = seeds;
         return this;
     }

@@ -10,7 +10,7 @@ public class RankDTO extends ExtendedDTO{
 
     private String name;
 
-    private Long requiredSeeds;
+    private Integer requiredSeeds;
 
     private Long discount;
 
@@ -18,7 +18,7 @@ public class RankDTO extends ExtendedDTO{
     public RankDTO() {
     }
 
-    public RankDTO(UUID id, String name, Long requiredSeeds, Long discount) {
+    public RankDTO(UUID id, String name, Integer requiredSeeds, Long discount) {
         super(id);
         this.name = name;
         this.requiredSeeds = requiredSeeds;
@@ -34,11 +34,11 @@ public class RankDTO extends ExtendedDTO{
         return this;
     }
 
-    public Long getRequiredSeeds() {
+    public Integer getRequiredSeeds() {
         return requiredSeeds;
     }
 
-    public RankDTO setRequiredSeeds(Long requiredSeeds) {
+    public RankDTO setRequiredSeeds(Integer requiredSeeds) {
         this.requiredSeeds = requiredSeeds;
         return this;
     }

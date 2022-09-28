@@ -16,7 +16,7 @@ public class Rank extends ExtendedEntity {
     private String name;
 
     @Column(name = "required_seeds")
-    private Long requiredSeeds;
+    private Integer requiredSeeds;
 
     @Column(name = "discount", nullable = false)
     private Float discount;
@@ -28,7 +28,7 @@ public class Rank extends ExtendedEntity {
     public Rank() {
     }
 
-    public Rank(UUID id, String name, Long requiredSeeds, Float discount, Set<User> users) {
+    public Rank(UUID id, String name, Integer requiredSeeds, Float discount, Set<User> users) {
         super(id);
         this.name = name;
         this.requiredSeeds = requiredSeeds;
@@ -45,11 +45,11 @@ public class Rank extends ExtendedEntity {
         return this;
     }
 
-    public Long getRequiredSeeds() {
+    public Integer getRequiredSeeds() {
         return requiredSeeds;
     }
 
-    public Rank setRequiredSeeds(Long requiredSeeds) {
+    public Rank setRequiredSeeds(Integer requiredSeeds) {
         this.requiredSeeds = requiredSeeds;
         return this;
     }
