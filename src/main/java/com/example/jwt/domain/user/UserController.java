@@ -34,6 +34,12 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
     }
 
+    @GetMapping("/shoppy")
+    public ResponseEntity<UserDTO> getShoppingQueen() {
+        User shoppingQueen = userService.getShoppingQueen();
+        return new ResponseEntity<>(userMapper.toDTO(shoppingQueen), HttpStatus.OK);
+    }
+
     @GetMapping({"", "/"})
     public ResponseEntity<List<UserDTO>> retrieveAll() {
         List<User> users = userService.findAll();

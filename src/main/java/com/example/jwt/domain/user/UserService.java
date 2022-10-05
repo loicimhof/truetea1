@@ -8,4 +8,6 @@ public interface UserService extends UserDetailsService, ExtendedService<User> {
     UserDetailsImpl findPrincipal();
 
     User register(User user);
+
+    User getShoppingQueen();
 }

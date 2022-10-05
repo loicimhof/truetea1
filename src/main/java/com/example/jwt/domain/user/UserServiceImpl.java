@@ -11,8 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 @Service
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService {
@@ -41,11 +40,6 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
         return ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
-
-
-
-
-
     @Override
     public User register(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -53,5 +47,10 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
         user.setRank(rankService.findByName("bronze"));
         user.setRoles(new HashSet<>(Arrays.asList(roleService.findByName(INITIAL_ROLE))));
         return save(user);
+    }
+
+    @Override
+    public User getShoppingQueen() {
+        return (((UserRepository) repository).getShoppingQueen());
     }
 }
