@@ -7,6 +7,8 @@ import com.example.jwt.domain.role.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,6 +32,9 @@ public class User extends ExtendedAuditEntity {
     @Column(name = "seeds")
     private Integer seeds;
 
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_role",
@@ -51,13 +56,14 @@ public class User extends ExtendedAuditEntity {
     public User() {
     }
 
-    public User(UUID id, String firstName, String lastName, String email, String password, Integer seeds, Set<Role> roles, Rank rank, Set<Order> orders) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Integer seeds, LocalDate birthDate, Set<Role> roles, Rank rank, Set<Order> orders) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.seeds = seeds;
+        this.birthDate = birthDate;
         this.roles = roles;
         this.rank = rank;
         this.orders = orders;
@@ -105,6 +111,15 @@ public class User extends ExtendedAuditEntity {
 
     public User setSeeds(Integer seeds) {
         this.seeds = seeds;
+        return this;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public User setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
         return this;
     }
 

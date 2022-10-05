@@ -15,6 +15,11 @@ public class TeaType extends ExtendedEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "req_age", nullable = false)
+    private Integer reqAge;
+
+    @Column(name = "req_rank_weight", nullable = false)
+    private Integer reqRankWeight;
 
     @OneToMany
     @JoinColumn(name = "tea_id", referencedColumnName = "id")
@@ -23,9 +28,11 @@ public class TeaType extends ExtendedEntity {
     public TeaType() {
     }
 
-    public TeaType(UUID id, String name, List<Tea> tea) {
+    public TeaType(UUID id, String name, Integer reqAge, Integer reqRankWeight, List<Tea> tea) {
         super(id);
         this.name = name;
+        this.reqAge = reqAge;
+        this.reqRankWeight = reqRankWeight;
         this.tea = tea;
     }
 
@@ -35,6 +42,24 @@ public class TeaType extends ExtendedEntity {
 
     public TeaType setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public Integer getReqAge() {
+        return reqAge;
+    }
+
+    public TeaType setReqAge(Integer reqAge) {
+        this.reqAge = reqAge;
+        return this;
+    }
+
+    public Integer getReqRankWeight() {
+        return reqRankWeight;
+    }
+
+    public TeaType setReqRankWeight(Integer reqRankWeight) {
+        this.reqRankWeight = reqRankWeight;
         return this;
     }
 

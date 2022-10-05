@@ -2,11 +2,14 @@ package com.example.jwt.domain.order;
 
 import com.example.jwt.core.generic.ExtendedRepository;
 import com.example.jwt.core.generic.ExtendedServiceImpl;
+import com.example.jwt.domain.order.dto.OwnTea;
 import com.example.jwt.domain.order_position.OrderPosition;
 
 import com.example.jwt.domain.rank.Rank;
 import com.example.jwt.domain.rank.RankService;
 import com.example.jwt.domain.tea.TeaService;
+
+import com.example.jwt.domain.teatype.TeaTypeService;
 import com.example.jwt.domain.user.User;
 import com.example.jwt.domain.user.UserService;
 import org.slf4j.Logger;
@@ -14,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,75 +29,102 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
     TeaService teaService;
     UserService userService;
     RankService rankService;
+    TeaTypeService teaTypeService;
 
 
     @Autowired
-    public OrderServiceImpl(ExtendedRepository<Order> repository, Logger logger, TeaService teaService, UserService userService, RankService rankService) {
+    public OrderServiceImpl(ExtendedRepository<Order> repository, Logger logger, TeaService teaService, UserService userService, RankService rankService, TeaTypeService teaTypeService) {
         super(repository, logger);
         this.teaService = teaService;
         this.userService = userService;
         this.rankService = rankService;
+        this.teaTypeService = teaTypeService;
     }
 
     @Override
     @Transactional
-    public Order createOrder(Order order) {
+    public Order createOrder(Order order) throws Exception {
         Set<OrderPosition> detachedPositions = order.getOrderPositions();
         Order cachedOrder = save(order.setOrderPositions(new HashSet<>()).setUser(userService.findPrincipal().user()));
         cachedOrder.setOrderPositions(detachedPositions.stream().map(p -> p.setOrder(cachedOrder)).collect(Collectors.toSet()));
-
-        Order order1 = save(cachedOrder);
 
         for (int i = 0; i < 5; i++) {
             System.out.println("gibb it simple" + i);
         }
 
-        order1.setOrderPositions(order1.getOrderPositions().stream().map(p -> p.setTea(teaService.findById(p.getTea().getId()))).collect(Collectors.toSet()));
+        cachedOrder.setOrderPositions(cachedOrder.getOrderPositions().stream().map(p -> p.setTea(teaService.findById(p.getTea().getId())) ).collect(Collectors.toSet()));
+
+        for (OrderPosition orderPosition : cachedOrder.getOrderPositions()) {
+            Integer reqAge = orderPosition.getTea().getTeaType().getReqAge();
+            Integer reqRankWeight = orderPosition.getTea().getTeaType().getReqRankWeight();
+            int age = Period.between(userService.findPrincipal().user().getBirthDate(), LocalDate.now()).getYears();
+            Integer rankWeight = cachedOrder.getUser().getRank().getWeight();
+
+            if (reqAge > age) {
+                throw new RuntimeException("too young");
+            }
+            if (reqRankWeight > rankWeight) {
+                throw new RuntimeException("not good rank");
+            }
+        }
+
+        /*
+                    Integer reqAge = p.getTea().getTeaType().getReqAge();
+            Integer reqRankWeight = p.getTea().getTeaType().getReqRankWeight();
+            int age = Period.between(userService.findPrincipal().user().getBirthDate(), LocalDate.now()).getYears();
+            Integer rankWeigh = cachedOrder.getUser().getRank().getWeight();
+
+            if (reqAge > age) {
+                throw new RuntimeException("too young");
+            }
+            if (reqRankWeight > rankWeigh) {
+                throw new RuntimeException("not good rank");
+            }
+         */
 
         // set netto price
-        float brutto = order1.getOrderPositions().stream().map(p -> p.getTea().getSellingPrice() * p.getAmount()).reduce(0F, Float::sum); // warum identity
+        float gross = cachedOrder.getOrderPositions().stream().map(p -> p.getTea().getSellingPrice() * p.getAmount()).reduce(0F, Float::sum); // warum identity
         float discount = cachedOrder.getUser().getRank().getDiscount();
-        float netto = brutto * discount;
-        order1.setPrice(netto);
+        float net = gross * discount;
+        cachedOrder.setPrice(net);
 
         // set seeds
-        float earnedSeedsAsFloat = order1.getPrice() / 2;
-        order1.getUser().setSeeds((int) earnedSeedsAsFloat + order1.getUser().getSeeds());
-
+        float earnedSeedsAsFloat = cachedOrder.getPrice() / 2;
+        cachedOrder.getUser().setSeeds((int) earnedSeedsAsFloat + cachedOrder.getUser().getSeeds());
 
         // get Seeds from db
-        Integer dbSeeds = order1.getUser().getSeeds();
+        Integer dbSeeds = cachedOrder.getUser().getSeeds();
 
         // set new rank
         List<Rank> ranksList = rankService.findAll().stream().filter( rank -> rank.getRequiredSeeds() < dbSeeds).sorted(Comparator.comparingInt(Rank::getRequiredSeeds)).toList();
         Rank newRank = ranksList.get(ranksList.size()-1);
-        order1.getUser().setRank(newRank);
+        cachedOrder.getUser().setRank(newRank);
 
-
-        /*
-        Set<Order> orderSet = order1.getUser().getOrders();
-        System.out.println(orderSet);
-
-
-         */
-
-        /*
-        7) Ein Benutzer muss all seine getätigten Bestellungen einsehen können
-         */
-
-        return save(order1);
+        return save(cachedOrder);
     }
+
 
 
     @Override
     public List<Order> getOrders(){
-        // List<Order> orderSet = userService.findPrincipal().user().getOrders().stream().toList();
-        // System.out.println(orderSet);
         User principal = userService.findPrincipal().user();
-
         List<Order> orderList = findAll().stream().filter(order -> order.getUser().getId().equals(userService.findPrincipal().user().getId())).toList();
         return orderList;
     }
 
+    @Override
+    public List<OwnTea> getOwnTea() {
+        Optional<List<OwnTea>> optional = (((OrderRepository) repository).ownTea(userService.findPrincipal().user().getId()));
+        if (optional.isPresent()){
+            return optional.get();
+        } else {
+            throw new NoSuchElementException("No value present");
+        }
+    }
 
+
+    @Override
+    public UUID getPrincipal() {
+        return userService.findPrincipal().user().getId();
+    }
 }

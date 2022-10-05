@@ -3,6 +3,8 @@ package com.example.jwt.domain.user.dto;
 import com.example.jwt.domain.role.Role;
 import com.example.jwt.domain.role.dto.RoleDTO;
 import com.example.jwt.domain.user.User;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-28T11:38:05+0200",
+    date = "2022-10-05T11:42:20+0200",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.4.1 (Amazon.com Inc.)"
 )
 @Component
@@ -123,6 +125,9 @@ public class UserMapperImpl implements UserMapper {
         user.setLastName( dto.getLastName() );
         user.setEmail( dto.getEmail() );
         user.setPassword( dto.getPassword() );
+        if ( dto.getBirthDate() != null ) {
+            user.setBirthDate( LocalDateTime.ofInstant( dto.getBirthDate().toInstant(), ZoneOffset.UTC ).toLocalDate() );
+        }
 
         return user;
     }

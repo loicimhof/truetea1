@@ -21,6 +21,9 @@ public class Rank extends ExtendedEntity {
     @Column(name = "discount", nullable = false)
     private Float discount;
 
+    @Column(name = "weight")
+    private Integer weight;
+
     @OneToMany(mappedBy = "rank")
     Set<User> users = new HashSet<>();
 
@@ -28,11 +31,12 @@ public class Rank extends ExtendedEntity {
     public Rank() {
     }
 
-    public Rank(UUID id, String name, Integer requiredSeeds, Float discount, Set<User> users) {
+    public Rank(UUID id, String name, Integer requiredSeeds, Float discount, Integer weight, Set<User> users) {
         super(id);
         this.name = name;
         this.requiredSeeds = requiredSeeds;
         this.discount = discount;
+        this.weight = weight;
         this.users = users;
     }
 
@@ -60,6 +64,15 @@ public class Rank extends ExtendedEntity {
 
     public Rank setDiscount(Float discount) {
         this.discount = discount;
+        return this;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public Rank setWeight(Integer weight) {
+        this.weight = weight;
         return this;
     }
 

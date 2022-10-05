@@ -50,4 +50,3 @@ public class TeaTypeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-

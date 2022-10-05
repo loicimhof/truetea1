@@ -3,6 +3,7 @@ package com.example.jwt.domain.order;
 
 import com.example.jwt.domain.order.dto.OrderDTO;
 import com.example.jwt.domain.order.dto.OrderMapper;
+import com.example.jwt.domain.order.dto.OwnTea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +46,15 @@ public class OrderController {
         return new ResponseEntity<>(orderMapper.toDTOs(orders), HttpStatus.OK);
     }
 
+
+    @GetMapping("/owntea")
+    public ResponseEntity<List<OwnTea>> getBoughtTea() {
+        List<OwnTea> ownTeas = orderService.getOwnTea();
+        return new ResponseEntity<>(orderService.getOwnTea(), HttpStatus.OK);
+    }
+
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) throws Exception {
         Order savedOrder = orderService.createOrder(orderMapper.fromDTO(orderDTO));
         return new ResponseEntity<>(orderMapper.toDTO(savedOrder), HttpStatus.CREATED);
     }
