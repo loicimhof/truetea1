@@ -60,10 +60,14 @@ insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120002', 'ROLE
 insert into role(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120003', 'ROLE_DEV');
 
 
-insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'bsp 1');
+insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'CAN_SEE_STATISTICS');
 insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120002', 'bsp 2');
 insert into authority(id, name) VALUES ('ab028170-2ead-11ed-a261-0242ac120003', 'bsp 3');
+
 
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120001');
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120002');
 insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120001', 'ab028170-2ead-11ed-a261-0242ac120003');
+
+insert into role_authority(role_id, authority_id) VALUES ('ab028170-2ead-11ed-a261-0242ac120002', 'ab028170-2ead-11ed-a261-0242ac120001');
+

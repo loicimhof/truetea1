@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,9 @@ public class UserController {
     }
 
     @GetMapping("/shoppy")
+    @PreAuthorize("hasAuthority('CAN_SEE_STATISTICS')")
+    @RolesAllowed({"ROLE_ADMIN"})
+
     public ResponseEntity<UserDTO> getShoppingQueen() {
         User shoppingQueen = userService.getShoppingQueen();
         return new ResponseEntity<>(userMapper.toDTO(shoppingQueen), HttpStatus.OK);
