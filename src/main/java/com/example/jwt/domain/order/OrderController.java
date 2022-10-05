@@ -5,6 +5,7 @@ import com.example.jwt.domain.order.dto.OrderDTO;
 import com.example.jwt.domain.order.dto.OrderMapper;
 import com.example.jwt.domain.order.dto.OwnTea;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -44,6 +45,13 @@ public class OrderController {
     public ResponseEntity<List<OrderDTO>> getAllOwn() {
         List<Order> orders = orderService.getOrders();
         return new ResponseEntity<>(orderMapper.toDTOs(orders), HttpStatus.OK);
+    }
+
+    // paged get all
+    @GetMapping("/p/{pageNo}/{pageSize}")
+    public ResponseEntity<List<OrderDTO>> getPaginatedProducts(@PathVariable int pageNo, @PathVariable int pageSize) {
+        List<Order> products = orderService.findAll(PageRequest.of(pageNo, pageSize));
+        return new ResponseEntity<>(orderMapper.toDTOs(products), HttpStatus.OK);
     }
 
 
