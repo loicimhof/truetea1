@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -60,27 +59,24 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
             int age = Period.between(userService.findPrincipal().user().getBirthDate(), LocalDate.now()).getYears();
             Integer rankWeight = cachedOrder.getUser().getRank().getWeight();
 
+            Integer stock = orderPosition.getTea().getStock();
+            Integer amount = orderPosition.getAmount();
+
             if (reqAge > age) {
                 throw new RuntimeException("too young");
             }
             if (reqRankWeight > rankWeight) {
                 throw new RuntimeException("not good rank");
             }
+            if (amount > stock) {
+                throw new RuntimeException("Not enough tea in stock");
+            }
+
+            // orderPosition.getTea().setAmount();
+            orderPosition.getTea().setStock(stock - amount);
         }
 
-        /*
-                    Integer reqAge = p.getTea().getTeaType().getReqAge();
-            Integer reqRankWeight = p.getTea().getTeaType().getReqRankWeight();
-            int age = Period.between(userService.findPrincipal().user().getBirthDate(), LocalDate.now()).getYears();
-            Integer rankWeigh = cachedOrder.getUser().getRank().getWeight();
 
-            if (reqAge > age) {
-                throw new RuntimeException("too young");
-            }
-            if (reqRankWeight > rankWeigh) {
-                throw new RuntimeException("not good rank");
-            }
-         */
 
         // set netto price
         float gross = cachedOrder.getOrderPositions().stream().map(p -> p.getTea().getSellingPrice() * p.getAmount()).reduce(0F, Float::sum); // warum identity
@@ -96,9 +92,12 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
         Integer dbSeeds = cachedOrder.getUser().getSeeds();
 
         // set new rank
-        List<Rank> ranksList = rankService.findAll().stream().filter( rank -> rank.getRequiredSeeds() < dbSeeds).sorted(Comparator.comparingInt(Rank::getRequiredSeeds)).toList();
-        Rank newRank = ranksList.get(ranksList.size()-1);
+        List<Rank> ranksList = rankService.findAll().stream().filter( rank -> rank.getRequiredSeeds() <= dbSeeds).sorted(Comparator.comparingInt(Rank::getRequiredSeeds)).toList();
+        Rank newRank = ranksList.get(ranksList.size() -1);
         cachedOrder.getUser().setRank(newRank);
+
+        // Rank rank = rankService.findRankBySeeds(order1.getUser().getSeeds());
+
 
         return save(cachedOrder);
     }

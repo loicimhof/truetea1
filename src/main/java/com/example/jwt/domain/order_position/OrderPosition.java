@@ -12,7 +12,7 @@ import java.util.UUID;
 public class OrderPosition extends ExtendedEntity {
 
     @Column(name = "amount")
-    private Long amount;
+    private Integer amount;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,18 +26,18 @@ public class OrderPosition extends ExtendedEntity {
     public OrderPosition() {
     }
 
-    public OrderPosition(UUID id, Long amount, Order order, Tea tea) {
+    public OrderPosition(UUID id, Integer amount, Order order, Tea tea) {
         super(id);
         this.amount = amount;
         this.order = order;
         this.tea = tea;
     }
 
-    public Long getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public OrderPosition setAmount(Long amount) {
+    public OrderPosition setAmount(Integer amount) {
         this.amount = amount;
         return this;
     }

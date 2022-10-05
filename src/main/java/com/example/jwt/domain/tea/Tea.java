@@ -28,7 +28,7 @@ public class Tea extends ExtendedEntity {
     private Date harvestDate;
 
     @Column(name = "stock")
-    private long stock;
+    private Integer stock;
 
     @ManyToOne
     @JoinColumn(name = "origin", referencedColumnName = "id")
@@ -42,7 +42,7 @@ public class Tea extends ExtendedEntity {
     public Tea() {
     }
 
-    public Tea(UUID id, String name, String description, Float buyingPrice, Float sellingPrice, Date harvestDate, long stock, Country country, TeaType teaType) {
+    public Tea(UUID id, String name, String description, Float buyingPrice, Float sellingPrice, Date harvestDate, Integer stock, Country country, TeaType teaType) {
         super(id);
         this.name = name;
         this.description = description;
@@ -99,11 +99,11 @@ public class Tea extends ExtendedEntity {
         return this;
     }
 
-    public long getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public Tea setStock(long stock) {
+    public Tea setStock(Integer stock) {
         this.stock = stock;
         return this;
     }
