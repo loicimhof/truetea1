@@ -13,12 +13,10 @@ import java.util.UUID;
 @Table(name = "role")
 public class Role extends ExtendedEntity {
 
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
-
     @ManyToMany(mappedBy = "roles")
     Set<User> users = new HashSet<>();
-
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_authority",

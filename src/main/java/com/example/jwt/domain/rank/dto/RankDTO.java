@@ -2,11 +2,9 @@ package com.example.jwt.domain.rank.dto;
 
 import com.example.jwt.core.generic.ExtendedDTO;
 
-import javax.persistence.Column;
-import java.util.Date;
 import java.util.UUID;
 
-public class RankDTO extends ExtendedDTO{
+public class RankDTO extends ExtendedDTO {
 
     private String name;
 

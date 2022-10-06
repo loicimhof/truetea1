@@ -2,7 +2,6 @@ package com.example.jwt.domain.rank;
 
 
 import com.example.jwt.domain.rank.dto.RankDTO;
-
 import com.example.jwt.domain.rank.dto.RankMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

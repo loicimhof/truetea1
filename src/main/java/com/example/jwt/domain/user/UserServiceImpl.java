@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService {
@@ -24,7 +26,7 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     private final RoleService roleService;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, Logger logger, BCryptPasswordEncoder bCryptPasswordEncoder,RankService rankService, RoleService roleService) {
+    public UserServiceImpl(UserRepository repository, Logger logger, BCryptPasswordEncoder bCryptPasswordEncoder, RankService rankService, RoleService roleService) {
         super(repository, logger);
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.rankService = rankService;
@@ -65,10 +67,9 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
 
     @Override
     public User lockUser(UUID id) {
-        if (findById(id).getRoles().contains(roleService.findByName(ROLE_ADMIN))){
+        if (findById(id).getRoles().contains(roleService.findByName(ROLE_ADMIN))) {
             throw new RuntimeException("You can't delete admin");
-        }
-        else {
+        } else {
             User lockedUser = findById(id).setLocked(true);
             return save(lockedUser);
         }
@@ -78,6 +79,5 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
     public User unlockUser(UUID id) {
         User unlockedUser = findById(id).setLocked(false);
         return save(unlockedUser);
-
     }
 }

@@ -1,7 +1,6 @@
 package com.example.jwt.domain.order_position.dto;
 
 import com.example.jwt.core.generic.ExtendedDTO;
-import com.example.jwt.domain.order.dto.OrderDTO;
 import com.example.jwt.domain.tea.dto.TeaDTO;
 
 import java.util.UUID;

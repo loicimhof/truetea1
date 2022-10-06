@@ -1,7 +1,6 @@
 package com.example.jwt.domain.teatype;
 
 import com.example.jwt.core.generic.ExtendedEntity;
-import com.example.jwt.domain.rank.Rank;
 import com.example.jwt.domain.tea.Tea;
 
 import javax.persistence.*;

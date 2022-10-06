@@ -5,7 +5,7 @@ import com.example.jwt.core.generic.ExtendedDTO;
 import java.util.Date;
 import java.util.UUID;
 
-public class CountryDTO extends ExtendedDTO{
+public class CountryDTO extends ExtendedDTO {
 
     private Date date_bought;
 

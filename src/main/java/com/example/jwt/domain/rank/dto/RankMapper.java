@@ -7,6 +7,7 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RankMapper extends ExtendedMapper<Rank, RankDTO> {
-    Rank fromDTO (RankDTO dto);
-    RankDTO toDTO (Rank ranks);
+    Rank fromDTO(RankDTO dto);
+
+    RankDTO toDTO(Rank ranks);
 }

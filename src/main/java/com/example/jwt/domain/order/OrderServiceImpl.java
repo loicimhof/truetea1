@@ -4,11 +4,9 @@ import com.example.jwt.core.generic.ExtendedRepository;
 import com.example.jwt.core.generic.ExtendedServiceImpl;
 import com.example.jwt.domain.order.dto.OwnTea;
 import com.example.jwt.domain.order_position.OrderPosition;
-
 import com.example.jwt.domain.rank.Rank;
 import com.example.jwt.domain.rank.RankService;
 import com.example.jwt.domain.tea.TeaService;
-
 import com.example.jwt.domain.teatype.TeaTypeService;
 import com.example.jwt.domain.user.UserService;
 import org.slf4j.Logger;
@@ -50,7 +48,7 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
             System.out.println("gibb it simple" + i);
         }
 
-        cachedOrder.setOrderPositions(cachedOrder.getOrderPositions().stream().map(p -> p.setTea(teaService.findById(p.getTea().getId())) ).collect(Collectors.toSet()));
+        cachedOrder.setOrderPositions(cachedOrder.getOrderPositions().stream().map(p -> p.setTea(teaService.findById(p.getTea().getId()))).collect(Collectors.toSet()));
 
         for (OrderPosition orderPosition : cachedOrder.getOrderPositions()) {
             Integer reqAge = orderPosition.getTea().getTeaType().getReqAge();
@@ -74,7 +72,6 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
         }
 
 
-
         // set netto price
         float gross = cachedOrder.getOrderPositions().stream().map(p -> p.getTea().getSellingPrice() * p.getAmount()).reduce(0F, Float::sum); // warum identity
         float discount = cachedOrder.getUser().getRank().getDiscount();
@@ -92,17 +89,16 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
         Integer dbSeeds = cachedOrder.getUser().getSeeds();
 
         // set new rank
-        List<Rank> ranksList = rankService.findAll().stream().filter( rank -> rank.getRequiredSeeds() <= dbSeeds).sorted(Comparator.comparingInt(Rank::getRequiredSeeds)).toList();
-        Rank newRank = ranksList.get(ranksList.size() -1);
+        List<Rank> ranksList = rankService.findAll().stream().filter(rank -> rank.getRequiredSeeds() <= dbSeeds).sorted(Comparator.comparingInt(Rank::getRequiredSeeds)).toList();
+        Rank newRank = ranksList.get(ranksList.size() - 1);
         cachedOrder.getUser().setRank(newRank);
 
         return save(cachedOrder);
     }
 
 
-
     @Override
-    public List<Order> getOrders(){
+    public List<Order> getOrders() {
         List<Order> orderList = findAll().stream().filter(order -> order.getUser().getId().equals(userService.findPrincipal().user().getId())).toList();
         return orderList;
     }
@@ -110,7 +106,7 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
     @Override
     public List<OwnTea> getOwnTea() {
         Optional<List<OwnTea>> optional = (((OrderRepository) repository).ownTea(userService.findPrincipal().user().getId()));
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             return optional.get();
         } else {
             throw new NoSuchElementException("No value present");

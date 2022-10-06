@@ -1,6 +1,7 @@
 package com.example.jwt.domain.user.dto;
 
 import com.example.jwt.core.generic.ExtendedDTO;
+
 import java.util.UUID;
 
 public class LockUserDTO extends ExtendedDTO {

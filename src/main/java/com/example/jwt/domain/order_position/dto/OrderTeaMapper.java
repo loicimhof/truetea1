@@ -7,6 +7,7 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderTeaMapper extends ExtendedMapper<OrderPosition, OrderPositionDTO> {
-    OrderPosition fromDTO (OrderPositionDTO dto);
-    OrderPositionDTO toDTO (OrderPosition orderPosition);
+    OrderPosition fromDTO(OrderPositionDTO dto);
+
+    OrderPositionDTO toDTO(OrderPosition orderPosition);
 }

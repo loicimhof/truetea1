@@ -2,7 +2,6 @@ package com.example.jwt.domain.role;
 
 import com.example.jwt.core.generic.ExtendedRepository;
 import com.example.jwt.core.generic.ExtendedServiceImpl;
-import com.example.jwt.domain.role.Role;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 

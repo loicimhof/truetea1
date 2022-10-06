@@ -3,7 +3,10 @@ package com.example.jwt.domain.rank;
 import com.example.jwt.core.generic.ExtendedEntity;
 import com.example.jwt.domain.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -12,20 +15,16 @@ import java.util.UUID;
 @Table(name = "rank")
 public class Rank extends ExtendedEntity {
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "required_seeds")
-    private Integer requiredSeeds;
-
-    @Column(name = "discount", nullable = false)
-    private Float discount;
-
-    @Column(name = "weight")
-    private Integer weight;
-
     @OneToMany(mappedBy = "rank")
     Set<User> users = new HashSet<>();
+    @Column(name = "name")
+    private String name;
+    @Column(name = "required_seeds")
+    private Integer requiredSeeds;
+    @Column(name = "discount", nullable = false)
+    private Float discount;
+    @Column(name = "weight")
+    private Integer weight;
 
 
     public Rank() {

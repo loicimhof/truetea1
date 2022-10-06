@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping("/discount/1month")
     @PreAuthorize("hasAuthority('CAN_SEE_STATISTICS')")
     @RolesAllowed({"ROLE_ADMIN"})
-    public ResponseEntity<Float> getDiscount(){
+    public ResponseEntity<Float> getDiscount() {
         Float discount = userService.getDiscount();
         return new ResponseEntity<>(discount, HttpStatus.OK);
     }

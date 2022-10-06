@@ -5,7 +5,7 @@ import com.example.jwt.core.generic.ExtendedDTO;
 import java.util.Date;
 import java.util.UUID;
 
-public class TeaDTO extends ExtendedDTO{
+public class TeaDTO extends ExtendedDTO {
 
     private String name;
 

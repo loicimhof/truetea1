@@ -1,12 +1,10 @@
 package com.example.jwt.domain.country;
 
 import com.example.jwt.core.generic.ExtendedEntity;
-import com.example.jwt.domain.tea.Tea;
-import com.example.jwt.domain.user.User;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity

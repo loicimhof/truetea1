@@ -4,7 +4,7 @@ import com.example.jwt.core.generic.ExtendedDTO;
 
 import java.util.UUID;
 
-public class TeaTypeDTO extends ExtendedDTO{
+public class TeaTypeDTO extends ExtendedDTO {
 
     private String name;
 

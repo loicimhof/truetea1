@@ -1,7 +1,6 @@
 package com.example.jwt.domain.order;
 
 import com.example.jwt.core.generic.ExtendedAuditEntity;
-
 import com.example.jwt.domain.order_position.OrderPosition;
 import com.example.jwt.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
