@@ -17,6 +17,7 @@ import java.util.*;
 public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserService {
 
     private static final String INITIAL_ROLE = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final RankService rankService;
@@ -46,11 +47,37 @@ public class UserServiceImpl extends ExtendedServiceImpl<User> implements UserSe
         user.setSeeds(0);
         user.setRank(rankService.findByName("bronze"));
         user.setRoles(new HashSet<>(Arrays.asList(roleService.findByName(INITIAL_ROLE))));
+        user.setLocked(false);
         return save(user);
     }
 
     @Override
     public User getShoppingQueen() {
         return (((UserRepository) repository).getShoppingQueen());
+    }
+
+
+    // TODO IDK
+    @Override
+    public Float getDiscount() {
+        return (((UserRepository) repository).getDiscount());
+    }
+
+    @Override
+    public User lockUser(UUID id) {
+        if (findById(id).getRoles().contains(roleService.findByName(ROLE_ADMIN))){
+            throw new RuntimeException("You can't delete admin");
+        }
+        else {
+            User lockedUser = findById(id).setLocked(true);
+            return save(lockedUser);
+        }
+    }
+
+    @Override
+    public User unlockUser(UUID id) {
+        User unlockedUser = findById(id).setLocked(false);
+        return save(unlockedUser);
+
     }
 }

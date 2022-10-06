@@ -17,6 +17,9 @@ public class Order extends ExtendedAuditEntity {
     @Column(name = "price")
     private Float price;
 
+    @Column(name = "discount")
+    private Float discount;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "users_id", referencedColumnName = "id", nullable = false)
     private User user;
@@ -30,9 +33,10 @@ public class Order extends ExtendedAuditEntity {
     public Order() {
     }
 
-    public Order(UUID id, Float price, User user, Set<OrderPosition> orderPositions) {
+    public Order(UUID id, Float price, Float discount, User user, Set<OrderPosition> orderPositions) {
         super(id);
         this.price = price;
+        this.discount = discount;
         this.user = user;
         this.orderPositions = orderPositions;
     }
@@ -43,6 +47,15 @@ public class Order extends ExtendedAuditEntity {
 
     public Order setPrice(Float price) {
         this.price = price;
+        return this;
+    }
+
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public Order setDiscount(Float discount) {
+        this.discount = discount;
         return this;
     }
 

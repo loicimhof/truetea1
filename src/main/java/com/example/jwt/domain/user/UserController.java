@@ -1,5 +1,6 @@
 package com.example.jwt.domain.user;
 
+import com.example.jwt.domain.user.dto.LockUserDTO;
 import com.example.jwt.domain.user.dto.UserDTO;
 import com.example.jwt.domain.user.dto.UserMapper;
 import com.example.jwt.domain.user.dto.UserRegisterDTO;
@@ -38,11 +39,33 @@ public class UserController {
     @GetMapping("/shoppy")
     @PreAuthorize("hasAuthority('CAN_SEE_STATISTICS')")
     @RolesAllowed({"ROLE_ADMIN"})
-
     public ResponseEntity<UserDTO> getShoppingQueen() {
         User shoppingQueen = userService.getShoppingQueen();
         return new ResponseEntity<>(userMapper.toDTO(shoppingQueen), HttpStatus.OK);
     }
+
+    @GetMapping("/discount/1month")
+    @PreAuthorize("hasAuthority('CAN_SEE_STATISTICS')")
+    @RolesAllowed({"ROLE_ADMIN"})
+    public ResponseEntity<Float> getDiscount(){
+        Float discount = userService.getDiscount();
+        return new ResponseEntity<>(discount, HttpStatus.OK);
+    }
+
+    @PostMapping("/lock/{id}")
+    @RolesAllowed({"ROLE_ADMIN"})
+    public ResponseEntity<LockUserDTO> lockUser(@PathVariable UUID id) {
+        User user = userService.lockUser(id);
+        return new ResponseEntity<>(userMapper.toLockUserDTO(user), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/unlock/{id}")
+    @RolesAllowed({"ROLE_ADMIN"})
+    public ResponseEntity<LockUserDTO> unlockUser(@PathVariable UUID id) {
+        User user = userService.unlockUser(id);
+        return new ResponseEntity<>(userMapper.toLockUserDTO(user), HttpStatus.CREATED);
+    }
+
 
     @GetMapping({"", "/"})
     public ResponseEntity<List<UserDTO>> retrieveAll() {

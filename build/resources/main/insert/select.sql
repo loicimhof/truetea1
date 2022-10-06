@@ -38,3 +38,21 @@ select u.first_name from users u, orders o, order_positions op where u.id = o.us
 
 
 select u.* from users u, orders o, order_positions op where u.id = o.users_id and o.id = op.order_id group by u.first_name, u.id, u.created_at, u.modified_at, birth_date, email, last_name, password, seeds, u.created_by, u.last_modified_by, rank_id order by sum(op.amount) desc limit 1;
+
+
+
+/*
+2.4) Ein Benutzer mit der Rolle ADMIN und der Autorität CAN_SEE_STATISTICS kann einsehen, wie
+hoch die ausgestellten Verbilligungen über alle Benutzer, während einem vorgegebenen Zeitraum waren
+ */
+
+
+ --v2.4
+select u.first_name, sum(o.discount) from users u, orders o where u.id = o.users_id group by u.first_name;
+
+
+
+select sum(discount) from orders users_id where created_at > :firstDate and created_at < :lastDate;
+
+
+select sum(discount) from orders where created_at >= current_date - interval '1'MONTH

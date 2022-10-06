@@ -35,6 +35,11 @@ public class User extends ExtendedAuditEntity {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    @Column(name = "locked")
+    private boolean locked;
+
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_role",
@@ -56,7 +61,7 @@ public class User extends ExtendedAuditEntity {
     public User() {
     }
 
-    public User(UUID id, String firstName, String lastName, String email, String password, Integer seeds, LocalDate birthDate, Set<Role> roles, Rank rank, Set<Order> orders) {
+    public User(UUID id, String firstName, String lastName, String email, String password, Integer seeds, LocalDate birthDate, boolean locked, Set<Role> roles, Rank rank, Set<Order> orders) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -64,6 +69,7 @@ public class User extends ExtendedAuditEntity {
         this.password = password;
         this.seeds = seeds;
         this.birthDate = birthDate;
+        this.locked = locked;
         this.roles = roles;
         this.rank = rank;
         this.orders = orders;
@@ -120,6 +126,15 @@ public class User extends ExtendedAuditEntity {
 
     public User setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+        return this;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public User setLocked(boolean locked) {
+        this.locked = locked;
         return this;
     }
 

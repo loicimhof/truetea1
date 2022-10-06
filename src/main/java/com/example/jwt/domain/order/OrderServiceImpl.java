@@ -10,7 +10,6 @@ import com.example.jwt.domain.rank.RankService;
 import com.example.jwt.domain.tea.TeaService;
 
 import com.example.jwt.domain.teatype.TeaTypeService;
-import com.example.jwt.domain.user.User;
 import com.example.jwt.domain.user.UserService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +70,6 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
             if (amount > stock) {
                 throw new RuntimeException("Not enough tea in stock");
             }
-
-            // orderPosition.getTea().setAmount();
             orderPosition.getTea().setStock(stock - amount);
         }
 
@@ -82,7 +79,10 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
         float gross = cachedOrder.getOrderPositions().stream().map(p -> p.getTea().getSellingPrice() * p.getAmount()).reduce(0F, Float::sum); // warum identity
         float discount = cachedOrder.getUser().getRank().getDiscount();
         float net = gross * discount;
+        float savedMoney = gross - net;
         cachedOrder.setPrice(net);
+        cachedOrder.setDiscount(savedMoney);
+
 
         // set seeds
         float earnedSeedsAsFloat = cachedOrder.getPrice() / 2;
@@ -96,9 +96,6 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
         Rank newRank = ranksList.get(ranksList.size() -1);
         cachedOrder.getUser().setRank(newRank);
 
-        // Rank rank = rankService.findRankBySeeds(order1.getUser().getSeeds());
-
-
         return save(cachedOrder);
     }
 
@@ -106,7 +103,6 @@ public class OrderServiceImpl extends ExtendedServiceImpl<Order> implements Orde
 
     @Override
     public List<Order> getOrders(){
-        User principal = userService.findPrincipal().user();
         List<Order> orderList = findAll().stream().filter(order -> order.getUser().getId().equals(userService.findPrincipal().user().getId())).toList();
         return orderList;
     }
